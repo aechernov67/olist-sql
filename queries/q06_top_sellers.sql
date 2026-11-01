@@ -16,11 +16,11 @@ sellers_reviews AS (
     GROUP BY order_items.seller_id, order_items.order_id
 ),
 revs_unique AS (
-    SELECT seller_id, ROUND(SUM(rev_score) / SUM(rev_number),2) as avg_rev_score
+    SELECT seller_id, ROUND(1.0 * SUM(rev_score) / SUM(rev_number), 2) as avg_rev_score
     FROM sellers_reviews
     GROUP BY seller_id
 )
 SELECT sellers_info.seller_id, sellers_info.sum_price, sellers_info.orders, revs_unique.avg_rev_score
 FROM sellers_info JOIN revs_unique ON sellers_info.seller_id = revs_unique.seller_id
 ORDER BY sellers_info.sum_price DESC
-LIMIT 10
+LIMIT 10;

@@ -2,5 +2,5 @@
 
 SELECT COALESCE(payment_type, 'no_payment_type') AS pay_type, COUNT(*) AS payments_number, ROUND(AVG(payment_value),2) as avg_value, ROUND(AVG(payment_installments), 2) AS avg_installments  
 FROM payments
-GROUP BY pay_type
-ORDER BY payments_number DESC
+GROUP BY payment_type
+ORDER BY payments_number DESC;

@@ -9,4 +9,4 @@ customers_unique AS (
     FROM info
     GROUP BY customer_unique_id
 )
-SELECT ROUND((SELECT COUNT(*) FROM customers_unique WHERE orders_number >= 2)/(SELECT COUNT(*) FROM customers_unique) * 100, 2) as repeat_pct
+SELECT ROUND(100.0 * (SELECT COUNT(*) FROM customers_unique WHERE orders_number >= 2) / (SELECT COUNT(*) FROM customers_unique), 2) as repeat_pct;

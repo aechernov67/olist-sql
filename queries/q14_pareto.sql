@@ -10,4 +10,4 @@ all_info as (
     from sellers_prices
 )
 select count(*) as sellers_number, count(*) filter (where sum_price_number = 1) as first_group, round(100.0 * sum(sum_price) filter (where sum_price_number = 1) / sum(sum_price), 2) as pct
-from all_info
+from all_info;

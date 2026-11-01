@@ -13,4 +13,4 @@ SELECT all_cts.categ_name, all_cts.positions, all_cts.freight_value_pct
 FROM all_cts
 WHERE all_cts.positions >= 1000
 ORDER BY all_cts.freight_value_pct DESC
-LIMIT 5
+LIMIT 5;

@@ -8,4 +8,4 @@ SELECT product_category_name, ROUND(SUM(price), 2) AS sum_price, COUNT(*) as sum
 FROM info
 GROUP BY product_category_name
 ORDER BY sum_price DESC
-LIMIT 10
+LIMIT 10;

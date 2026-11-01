@@ -17,7 +17,7 @@ all_info AS (
 month_info0 AS (
     SELECT date_trunc('month', order_purchase_timestamp) as mnth, ROUND(SUM(order_price), 2) as sum_price
     FROM all_info
-    GROUP BY mnth
+    GROUP BY date_trunc('month', order_purchase_timestamp)
 ),
 month_info AS (
     SELECT mnth, sum_price, CASE WHEN date_diff('month', LAG(mnth) OVER (ORDER BY mnth), mnth) = 1 THEN LAG(sum_price) OVER (ORDER BY mnth) END AS prev_sum_price
@@ -25,4 +25,4 @@ month_info AS (
 )
 SELECT mnth, sum_price, prev_sum_price, ROUND(100.0 * (sum_price - prev_sum_price) / prev_sum_price, 1) as pct_up
 FROM month_info
-ORDER BY mnth
+ORDER BY mnth;
