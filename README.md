@@ -6,12 +6,38 @@
 
 ## Как запустить
 
-Нужно скачать CSV с Kaggle в папку data/. После этого достаточно выполнить
+1. Установить DuckDB: https://duckdb.org/docs/installation. На Windows достаточно скачать duckdb.exe и положить его в корень репозитория, на macOS проще всего `brew install duckdb`.
+2. Скачать данные с Kaggle (нужен аккаунт): https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce. Скачается архив archive.zip, в нём 9 CSV.
+3. Создать в корне репозитория папку data и распаковать CSV прямо в неё, без вложенной папки. Должно получиться так:
 
 ```
-duckdb olist.duckdb < load_olist.sql
-duckdb olist.duckdb < queries/q13_cohorts.sql
+olist-sql/
+├── load_olist.sql
+├── olist.duckdb        <- появится после шага 4
+├── data/
+│   ├── olist_customers_dataset.csv
+│   ├── olist_geolocation_dataset.csv
+│   ├── olist_order_items_dataset.csv
+│   ├── olist_order_payments_dataset.csv
+│   ├── olist_order_reviews_dataset.csv
+│   ├── olist_orders_dataset.csv
+│   ├── olist_products_dataset.csv
+│   ├── olist_sellers_dataset.csv
+│   └── product_category_name_translation.csv
+└── queries/
+    ├── q01_repeat_customers.sql
+    ├── ...
+    └── q14_pareto.sql
 ```
+
+4. Из корня репозитория загрузить данные в базу и запустить нужный запрос:
+
+```
+duckdb olist.duckdb -c ".read load_olist.sql"
+duckdb olist.duckdb -c ".read queries/q13_cohorts.sql"
+```
+
+Команды одинаково работают в терминале macOS и Linux, в cmd и в PowerShell. Если duckdb.exe лежит в корне репозитория, то в PowerShell вместо `duckdb` нужно писать `.\duckdb`.
 
 Вместо q13_cohorts.sql можно подставить любой файл из папки queries. В первой строке каждого файла написан вопрос.
 
